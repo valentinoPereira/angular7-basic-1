@@ -2,6 +2,13 @@
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 7.1.3.
 
+## To use this app
+
+1) Clone the repository
+2) Navigate to the project folder with your command line tool, and run "npm install" command.
+3) The dependencies will take a while to install, once done - run "npm start".
+4) You can check the output on the browser on `http://localhost:4200/`.
+
 ## Development server
 
 Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
