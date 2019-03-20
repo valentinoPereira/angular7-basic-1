@@ -1,1 +1,36 @@
 /* You can add global styles to this file, and also import other style files */
+$primaryColor: rgb(239,79,73);
+$primaryDark: rgb(69, 76, 80);
+
+.text-primary {
+    color: $primaryColor !important;
+}
+.btn.btn-outline-primary {
+    border-color: $primaryColor;
+    border-width: 2px;
+    border-radius: 0;
+    // color: $primaryColor !important;
+    padding: .75rem 1.5rem;
+    font-weight: 500;
+}
+a:not([href]):not([tabindex]).btn.btn-outline-primary, .btn.btn-outline-primary  {
+    color: $primaryColor;
+}
+.btn-outline-primary:not(:disabled):not(.disabled).active, .btn-outline-primary:not(:disabled):not(.disabled):active, .show>.btn-outline-primary.dropdown-toggle,.btn-outline-primary:hover {
+    background-color: $primaryColor;
+    border-color: $primaryColor;
+    color: #fff !important;
+    cursor: pointer;
+}
+
+h1 {font-weight: bold;}
+
+@media (min-width: 320px) {
+    html {font-size: 12px;}
+}
+@media (min-width: 768px) {
+    html {font-size: 14px;}
+}
+@media (min-width: 1200px) {
+    html {font-size: 16px;}
+}

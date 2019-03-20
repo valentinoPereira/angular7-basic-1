@@ -1,0 +1,84 @@
+<div class="row justify-content-center mt-5">
+  <div class="col-md-6 col-xs-12">
+    <p>
+      <app-angular-logo [width]="50"></app-angular-logo>
+    </p>
+    <p class="text-center">
+      Please enter your correct credentials. Lorem ipsum dolor sit amet consectetur adipisicing elit. 
+    </p>
+    <hr />
+
+    <form [formGroup]="requestForm" (ngSubmit)="signUp(requestForm.value)">
+      <div class="form-group">
+        <label for="username">Login ID <span class="text-danger">*</span></label>
+        <input
+          type="text"
+          class="form-control"
+          formControlName="loginId"
+          id="username"
+          placeholder="Your registered mobile/email"
+        />
+        <small
+          class="form-text text-danger"
+          *ngIf="
+            requestForm.get('loginId').touched &&
+            requestForm.get('loginId').hasError('required')
+          "
+        >
+          Please enter a login ID
+        </small>
+        <small
+          class="form-text text-danger"
+          *ngIf="
+            requestForm.get('loginId').touched &&
+            requestForm.get('loginId').hasError('invalidPattern') &&
+            !requestForm.get('loginId').hasError('required')
+          "
+        >
+          Please enter a valid username.
+        </small>
+      </div>
+      <div class="form-group">
+        <label for="password">Password <span class="text-danger">*</span></label>
+        <input
+          type="password"
+          class="form-control"
+          formControlName="password"
+          id="password"
+          placeholder="Enter your password"
+        />
+        <small
+          class="form-text text-danger"
+          *ngIf="
+            requestForm.get('password').touched &&
+            requestForm.get('password').hasError('required')
+          "
+        >
+          Please enter your login password
+        </small>
+        <!-- {{ requestForm.get('password').errors | json }} -->
+        <small
+          class="form-text text-danger"
+          *ngIf="
+            requestForm.get('password').touched &&
+            requestForm.get('password').hasError('invalidPassword') &&
+            !requestForm.get('password').hasError('required')
+          "
+        >
+          Password must contain 1 uppercase, 1
+          lowercase, 1 number and 1 special character and minimum 8 characters long and
+          maximum 20 characters
+        </small>
+      </div>
+      <hr />
+      <div class="form-group text-center">
+        <button
+          type="submit"
+          class="btn btn-outline-primary"
+        >
+          LOGIN
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

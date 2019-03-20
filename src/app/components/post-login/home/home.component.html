@@ -1,0 +1,75 @@
+<div>
+  <app-angular-logo [width]="200" class="d-block d-sm-none"></app-angular-logo>
+  <app-angular-logo [width]="300" class="d-none d-sm-block"></app-angular-logo>
+
+  <div class="row justify-content-center">
+    <div class="col-md-8">
+        <div class="alert alert-warning d-flex justify-content-between align-items-center" *ngIf="logoutWarn" role="alert">
+            You will be logged out in {{ logoutWarnCount }} seconds. Press Ok to stay logged in
+            <button type="button" class="btn btn-primary" (click)="stopTimer()">OK</button>
+          </div>
+    </div>
+  </div>
+  
+  <div>
+    <h1 class="text-center text-primary">
+      Hi {{ loginID }} &emsp;
+      <button type="button" class="btn btn-light" (click)="confirmLogout()">
+        Logout
+      </button>
+    </h1>
+    <p class="text-center">
+      Lorem ipsum dolor sit amet consectetur adipisicing elit.
+    </p>
+
+    <div class="row">
+      <div class="col-md-6 mb-5">
+        <h5>Fetch your IP address</h5>
+        <hr />
+        <div *ngIf="ipAddress" class="alert alert-primary" role="alert">
+          Your IP address is : <b>{{ ipAddress }}</b>
+        </div>
+
+        <button
+          type="button"
+          class="btn btn-outline-primary hp-signup-button"
+          (click)="getIP()"
+        >
+          Get My IP
+        </button>
+      </div>
+      <div class="col-md-6 mb-3">
+        <h5>Search your Favorite Movie</h5>
+        <hr />
+        <div class="input-group mb-3">
+          <input
+            type="text"
+            class="form-control"
+            placeholder="Search Movie"
+            aria-label="Search Movie"
+            aria-describedby="button-addon2"
+            (keyup)="searchMovie($event.target.value)"
+          />
+          <div class="input-group-append">
+            <button
+              class="btn btn-outline-secondary"
+              type="button"
+              id="button-addon2"
+            >
+              Search
+            </button>
+          </div>
+        </div>
+
+        <div>
+          <ul>
+            <li *ngFor="let movie of filteredMovies">{{ movie }}</li>
+            <li *ngIf="filteredMovies?.length === 0" class="text-muted">
+              No Results found :(
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { ApiProviderService } from './services/api-provider.service';
 
 @Component({
   selector: 'app-root',
@@ -6,5 +7,6 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
-  title = 'angular-test-choice';
+  constructor(public service: ApiProviderService) {}
+  title = 'angular-test-ajackus';
 }
