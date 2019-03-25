@@ -15,7 +15,7 @@ export class ApiProviderService {
   login(data: BetaRequest): Observable<any> {
     console.log(data);
     // return this.http.post('http://localhost:8080', data);
-    return this.http.get('https://reqres.in/api/users/2');
+    return this.http.get('https://jsonplaceholder.typicode.com/todos/1');
   }
 
   getIpAddress(): Observable<any> {

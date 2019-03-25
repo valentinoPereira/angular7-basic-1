@@ -29,34 +29,41 @@ export class HomeComponent implements OnInit, OnDestroy {
   ) {
     this.logoutWarn = false;
     this.logoutWarnCount = 0;
+    this.loginID = this.storage.getLoginId();
+    this.movies = ['Om Shanti Om', 'Tere naam', 'Jai Ho', 'Kal ho na ho'];
   }
 
   ngOnInit() {
-    this.loginID = this.storage.getLoginId();
-    this.movies = ['Om Shanti Om', 'Tere naam', 'Jai Ho', 'Kal ho na ho'];
+    
     // Start watching for user inactivity.
     this.userIdle.startWatching();
 
     // Start watching when user idle is starting.
-    this.userIdle.onTimerStart().pipe(takeUntil(this.ngUnsubscribe)).subscribe(count => {
-      console.log(count);
-      if (count) {
-        this.logoutWarnCount = 30 - count;
-        this.logoutWarn = true;
-      }
-    });
+    this.userIdle
+      .onTimerStart()
+      .pipe(takeUntil(this.ngUnsubscribe))
+      .subscribe(count => {
+        console.log(count);
+        if (count) {
+          this.logoutWarnCount = 30 - count;
+          this.logoutWarn = true;
+        }
+      });
 
     // Start watch when time is up.
-    this.userIdle.onTimeout().pipe(takeUntil(this.ngUnsubscribe)).subscribe(() => {
-      console.log('Time is up!');
-      this.userIdle.stopWatching();
-      this.logout();
-    });
+    this.userIdle
+      .onTimeout()
+      .pipe(takeUntil(this.ngUnsubscribe))
+      .subscribe(() => {
+        console.log('Time is up!');
+        this.userIdle.stopWatching();
+        this.logout();
+      });
   }
 
   searchMovie(value) {
     this.filteredMovies = this.movies.filter(item => {
-      return item.toLowerCase().includes((value.toLowerCase()).trim());
+      return item.toLowerCase().includes(value.toLowerCase().trim());
     });
   }
 
@@ -88,6 +95,7 @@ export class HomeComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
+    console.log('Destroyed');
     this.ngUnsubscribe.next();
     this.ngUnsubscribe.complete();
   }

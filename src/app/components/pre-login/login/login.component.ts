@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy, ElementRef, Renderer2 } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { BetaRequest } from 'src/app/interfaces/beta-request';
@@ -8,6 +8,11 @@ import { StorageService } from 'src/app/services/storage.service';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { passwordValidator } from '../../shared/password-validator';
+
+enum PasswordType {
+  T = 'text',
+  P = 'password'
+};
 
 @Component({
   selector: 'app-login',
@@ -28,17 +33,23 @@ export class LoginComponent implements OnInit, OnDestroy {
       '',
       Validators.compose([
         Validators.required,
+        Validators.minLength(8),
+        Validators.maxLength(20),
         passwordValidator()
       ])
     ]
   });
   private ngUnsubscribe: Subject<any> = new Subject();
+  passwordType: PasswordType;
+  passwordTypeToggleText: string;
   constructor(
     private fb: FormBuilder,
     private service: ApiProviderService,
     private router: Router,
     private storage: StorageService
-  ) {}
+  ) {
+    this.togglePasswordDisplay();
+  }
 
   ngOnInit() {}
 
@@ -58,6 +69,16 @@ export class LoginComponent implements OnInit, OnDestroy {
         },
         err => console.error(err)
       );
+  }
+
+  togglePasswordDisplay() {
+    if (this.passwordType === PasswordType.P) {
+      this.passwordType = PasswordType.T;
+      this.passwordTypeToggleText = 'Hide';
+    } else {
+      this.passwordType = PasswordType.P;
+      this.passwordTypeToggleText = 'Show';
+    }
   }
 
   ngOnDestroy() {

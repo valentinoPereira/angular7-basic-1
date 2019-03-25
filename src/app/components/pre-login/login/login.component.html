@@ -4,13 +4,16 @@
       <app-angular-logo [width]="50"></app-angular-logo>
     </p>
     <p class="text-center">
-      Please enter your correct credentials. Lorem ipsum dolor sit amet consectetur adipisicing elit. 
+      Please enter your correct credentials. Lorem ipsum dolor sit amet
+      consectetur adipisicing elit.
     </p>
     <hr />
 
     <form [formGroup]="requestForm" (ngSubmit)="signUp(requestForm.value)">
       <div class="form-group">
-        <label for="username">Login ID <span class="text-danger">*</span></label>
+        <label for="username"
+          >Login ID <span class="text-danger">*</span></label
+        >
         <input
           type="text"
           class="form-control"
@@ -38,44 +41,66 @@
           Please enter a valid username.
         </small>
       </div>
-      <div class="form-group">
-        <label for="password">Password <span class="text-danger">*</span></label>
+      <div class="form-group password-field">
+        <label for="password"
+          >Password <span class="text-danger">*</span></label
+        >
         <input
-          type="password"
+          [type]="passwordType"
           class="form-control"
           formControlName="password"
           id="password"
           placeholder="Enter your password"
         />
+        <button type="button" (click)="togglePasswordDisplay()" class="btn btn-light btn-sm" *ngIf="!requestForm.get('password').hasError('required')">{{ passwordTypeToggleText }}</button>
         <small
-          class="form-text text-danger"
           *ngIf="
-            requestForm.get('password').touched &&
-            requestForm.get('password').hasError('required')
+            requestForm.get('password').invalid &&
+            (requestForm.get('password').dirty ||
+              requestForm.get('password').touched)
           "
+          class="form-text text-danger"
         >
+          <ng-container
+            *ngIf="requestForm.get('password').hasError('required')"
+          >
           Please enter your login password
-        </small>
-        <!-- {{ requestForm.get('password').errors | json }} -->
-        <small
-          class="form-text text-danger"
-          *ngIf="
-            requestForm.get('password').touched &&
-            requestForm.get('password').hasError('invalidPassword') &&
-            !requestForm.get('password').hasError('required')
-          "
-        >
-          Password must contain 1 uppercase, 1
-          lowercase, 1 number and 1 special character and minimum 8 characters long and
-          maximum 20 characters
+          </ng-container>
+          <ng-container
+            *ngIf="requestForm.get('password').hasError('minlength')"
+          >
+            Password should be minimum 8 characters
+          </ng-container>
+          <ng-container
+            *ngIf="requestForm.get('password').hasError('maxlength')"
+          >
+            Password should be maximum 20 characters
+          </ng-container>
+          <ng-container
+            *ngIf="requestForm.get('password').hasError('specialCharacters')"
+          >
+            Password should consist atleast one special character/s
+          </ng-container>
+          <ng-container
+            *ngIf="requestForm.get('password').hasError('oneLowercase')"
+          >
+            Password should consist atleast one lowercase character/s
+          </ng-container>
+          <ng-container
+            *ngIf="requestForm.get('password').hasError('oneUppercase')"
+          >
+            Password should consist atleast one uppercase character/s
+          </ng-container>
+          <ng-container
+            *ngIf="requestForm.get('password').hasError('oneDigit')"
+          >
+            Password should consist atleast one number
+          </ng-container>
         </small>
       </div>
       <hr />
       <div class="form-group text-center">
-        <button
-          type="submit"
-          class="btn btn-outline-primary"
-        >
+        <button type="submit" class="btn btn-outline-primary">
           LOGIN
         </button>
       </div>
